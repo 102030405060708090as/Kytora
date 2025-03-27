@@ -8,10 +8,10 @@ BOOTLOADER_BIN = build/bootloader.bin
 ISO_DIR = build/iso
 
 # Output files
-ISO_FILE = build/novaos.iso
+ISO_FILE = build/Kytora.iso
 
 # Targets
-all: build/novaos.iso
+all: build/Kytora.iso
 
 # Clean build directory
 clean:
@@ -22,10 +22,10 @@ build/bootloader.bin: bootloader/bootloader.asm
 	$(NASM) -f bin $< -o $@
 
 # Create ISO file
-build/novaos.iso: build/bootloader.bin
+build/Kytora.iso: build/bootloader.bin
 	mkdir -p $(ISO_DIR)/boot/grub
 	cp build/bootloader.bin $(ISO_DIR)/boot/bootloader.bin
-	echo 'set timeout=0\nset default=0\n\nmenuentry "NovaOS" {\n  multiboot /boot/bootloader.bin\n}' > $(GRUB_CFG)
+	echo 'set timeout=0\nset default=0\n\nmenuentry "Kytora" {\n  multiboot /boot/bootloader.bin\n}' > $(GRUB_CFG)
 	$(MKISOFS) -as mkisofs -o $(ISO_FILE) -b boot/bootloader.bin -c boot/boot.catalog -no-emul-boot -boot-load-size 4 -boot-info-table $(ISO_DIR)
 
 # Build everything (default target)
